@@ -71,7 +71,7 @@ class Player {
     this.attackDmg = attackDamage;
   }
   // ** Attack an enemy with a random number from 0 to YOUR attackDmg bonus **
-  strike (player, enemy, attackDmg) {
+  strike (Player, enemy, attackDmg) {
     
     // Get random number between 1 - 10 and that is damageAmount
     let damageAmount = Math.ceil(Math.random() * attackDmg)
@@ -80,11 +80,11 @@ class Player {
     // Subtract the enemy health with the damageAmount
     enemy.health -= damageAmount
     //  Update the game and DOM with updateGame()
-    updateGame(player, enemy, game.isOver)
+    updateGame(p1,p2,  game.isOver)
 
 
     //  Return a message of 'player name attacks enemy name for damageAmount'
-    return `${player.name} attacks ${enemy.name} for ${damageAmount}`
+    return `${Player.name} attacks ${enemy.name} for ${damageAmount}`
   }
   // ** Heal the player for random number from  1 to 5 **
   heal (player) {
@@ -124,7 +124,10 @@ else if(isOver == true && p2.health == 0 ) {
   message = `${p1.name} WINS`
 
 }
+  document.getElementById('victory').play()
     // Return message variable 
+
+    return message
 
   }
 
@@ -178,24 +181,34 @@ let gameState;
 // ** Player 1 Controls **
 document.addEventListener('keydown', function(e) {
   // if you press Q AND the enemy health is greater than 0 AND isOver is still false then strike()
-
+  if(e.key == 'q' && p2.health > 0 && game.isOver == false) {
+    p1.strike(p1,p2,p1.attackDmg)
+    document.getElementById("p1attack").play()
+  }
     // After striking then play attack sound
+
 
 });
 
 document.addEventListener('keydown', function(e) {
   
   // if you press a AND the player health is greater than 0 AND isOver is still false then strike()
-
+  if(e.key == 'w' && p2.health > 0)
     // After healing then play heal sound
-
+{
+  p1.heal(p1)
+  document.getElementById("p1heal").play()
+}
 });
 
 // ** Player 2 Controls **
 document.addEventListener('keydown', function(e) {
   
   // if you press p AND enemy health is greater than 0 AND isOver is still false then stike()
-
+  if(e.key == 'p' && p1.health > 0 && game.isOver == false) {
+    p2.strike(p2,p1,p2.attackDmg)
+    document.getElementById("p1attack").play()
+  }
     // After striking then play attack sound
 
 });
@@ -203,12 +216,17 @@ document.addEventListener('keydown', function(e) {
 document.addEventListener('keydown', function(e) {
   // if you press l AND the player health is greater than 0 AND isOver is still false then heal()
 
-    // After healing then play heal sound
-
+  if(e.key == 'o' && p1.health > 0)
+  // After healing then play heal sound
+{
+p2.heal(p2)
+document.getElementById("p1heal").play()
+}
 });
+
 
 
 
 // console.log(p1.strike(p1,p2, p1.attackDmg))
 
-console.log(p2.heal(p2))
+// console.log(p2.heal(p2))
