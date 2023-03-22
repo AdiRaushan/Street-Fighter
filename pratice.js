@@ -84,7 +84,7 @@ class Player {
 
 
     //  Return a message of 'player name attacks enemy name for damageAmount'
-    return `${player.name} attacks ${enemy.name}`
+    return `${player.name} attacks ${enemy.name} for ${damageAmount}`
   }
   // ** Heal the player for random number from  1 to 5 **
   heal (player) {
