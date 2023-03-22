@@ -55,6 +55,7 @@ const updateGame = (p1,p2,gameState) => {
     gameState = game.isOver
     resultDiv.innerText = 
     declareWinner(game.isOver, p1, p2)
+    return gameState
   }
 }
 
@@ -73,13 +74,17 @@ class Player {
   strike (player, enemy, attackDmg) {
     
     // Get random number between 1 - 10 and that is damageAmount
+    let damageAmount = Math.ceil(Math.random() * 10)
 
+    
     // Subtract the enemy health with the damageAmount
-
+    enemy.health -= damageAmount
     //  Update the game and DOM with updateGame()
+    updateGame(player, enemy, game.isOver)
+
 
     //  Return a message of 'player name attacks enemy name for damageAmount'
-
+    return `${player.name} attacks ${enemy.name}`
   }
   // ** Heal the player for random number from  1 to 5 **
   heal (player) {
