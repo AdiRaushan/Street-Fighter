@@ -38,16 +38,16 @@ let playButton = document.getElementById('play')
 let resultDiv = document.getElementById('result')
 let p1NameDiv = document.getElementById('p1Name')
 let p2NameDiv = document.getElementById('p2Name')
-let p1HealthDiv = document.getElementById('p1Health')
-let p2HealthDiv = document.getElementById('p2Health')
+let p1Health = document.getElementById('p1Health')
+let p2Health = document.getElementById('p2Health')
 
 // ** Check if either players health is  0 and if it is, then update isOver to true **
 const updateGame = (p1,p2,gameState) => {
   // Update the DOM with the names and the latest health of players
   p1NameDiv.innerText = p1.name
   p2NameDiv.innerText = p2.name
-  p1HealthDiv.innerText = p1.health
-  p2HealthDiv.innerText = p2.health
+  p1Health.innerText = p1.health
+  p2Health.innerText = p2.health
 
   // Condition IF either player health is <= 0 then set isOver to true and declareWinner
   if(p1.health <= 0 || p2.health <= 0 ){
@@ -203,4 +203,4 @@ document.addEventListener('keydown', function(e) {
 
 
 
-console.log(p1)
+console.log(p2.strike(p2,p1, p1.attackDmg))
