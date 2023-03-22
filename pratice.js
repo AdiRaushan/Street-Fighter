@@ -112,12 +112,18 @@ class Game {
   declareWinner(isOver,p1, p2) {
     
     // Create a message variable that will hold a message based on the condition
-
+    let message;
     // If isOver is true AND p1 health is <= 0 then update message variable  to 'p1 WINS!'
+    if(isOver == true && p1.health == 0 ) {
+      message = `${p2.name} WINS`
 
+    }
     // Else if isOver is true AND p2 health is <= 0 then update message variable  to 'p2 WINS!'
     // Play victory sound
+else if(isOver == true && p2.health == 0 ) {
+  message = `${p1.name} WINS`
 
+}
     // Return message variable 
 
   }
