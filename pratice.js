@@ -90,13 +90,13 @@ class Player {
   heal (player) {
     
     // Get random number between 1 - 5 and store that in hpAmount
-
+    let hpAmount = Math.ceil(Math.random() * 5)
     // Add hpAmount to players health
-
+    player.health += hpAmount
     //  Update the game and DOM with updateGame()
-
+    updateGame(p1, p2, game.isOver)
     //  Return a message of 'player name heals for hpAmount HP'
-
+    return `${player.name} heals for ${hpAmount} HP`
   }
 }
 
@@ -143,7 +143,7 @@ class Game {
 }
 
 // ** Create 2 players using the player class **
-let player1 = new Player("Jin Kazama", 100, 10)
+let player1 = new Player("Ryu", 100, 10)
 let player2 = new Player("Ken Masters", 100, 10)
 
 // console.log(player2.name)
@@ -203,4 +203,6 @@ document.addEventListener('keydown', function(e) {
 
 
 
-console.log(p2.strike(p2,p1, p1.attackDmg))
+// console.log(p1.strike(p1,p2, p1.attackDmg))
+
+console.log(p2.heal(p2))
