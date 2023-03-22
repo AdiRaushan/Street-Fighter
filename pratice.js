@@ -129,7 +129,10 @@ class Game {
 }
 
 // ** Create 2 players using the player class **
+let player1 = new Player("Adi", 100, 10)
+let player2 = new Player("BROdi", 100, 10)
 
+console.log(player2.name)
 
 // ** Save original Player Data into a variable in order to reset **
 let p1;
