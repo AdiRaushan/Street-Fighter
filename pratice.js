@@ -74,7 +74,7 @@ class Player {
   strike (player, enemy, attackDmg) {
     
     // Get random number between 1 - 10 and that is damageAmount
-    let damageAmount = Math.ceil(Math.random() * 10)
+    let damageAmount = Math.ceil(Math.random() * attackDmg)
 
     
     // Subtract the enemy health with the damageAmount
@@ -203,4 +203,4 @@ document.addEventListener('keydown', function(e) {
 
 
 
-
+console.log(p1)
