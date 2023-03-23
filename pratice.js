@@ -231,9 +231,3 @@ document.getElementById("p1heal").play()
 }
 });
 
-
-
-
-// console.log(p1.strike(p1,p2, p1.attackDmg))
-
-// console.log(p2.heal(p2))
