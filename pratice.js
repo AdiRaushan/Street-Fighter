@@ -50,12 +50,12 @@ const updateGame = (p1,p2,gameState) => {
   p2Health.innerText = p2.health
 
   // Condition IF either player health is <= 0 then set isOver to true and declareWinner
-  if(p1.health <= 0 || p2.health <= 0 ){
-    game.isOver = true
+  if (p1.health <= 0 || p2.health <= 0) {
+    game.isOver = true;
     gameState = game.isOver
-    resultDiv.innerText = declareWinner(gameState, p1, p2)
+    result.innerText = game.declareWinner(game.isOver,p1,p2)
     return gameState
-  }
+  } 
 }
 
 // ** Create the Player class which can create a player with all it's attributes and methods **
@@ -113,16 +113,15 @@ class Game {
     // Create a message variable that will hold a message based on the condition
     let message;
     // If isOver is true AND p1 health is <= 0 then update message variable  to 'p1 WINS!'
-    if(isOver == true && p1.health == 0 ) {
+    if(isOver == true && p1.health <= 0 ) {
       message = `${p2.name} WINS`
 
     }
     // Else if isOver is true AND p2 health is <= 0 then update message variable  to 'p2 WINS!'
     // Play victory sound
-else if(isOver == true && p2.health == 0 ) {
-  message = `${p1.name} WINS`
-
-}
+    else if(isOver == true && p2.health <= 0) {
+      message = `${p1.name} WINS!`
+    } 
   document.getElementById("victory").play()
     // Return message variable 
 
@@ -132,6 +131,11 @@ else if(isOver == true && p2.health == 0 ) {
 
   // ** Reset the players health back to it's original state and isOver to FALSE **
   reset(p1,p2) {
+    p1.health= 100
+    p2.health = 100
+    this.isOver = false 
+     resultDiv.innerText = ''
+     updateGame(p1,p2, this.isOver)
     // set p1 health and p2 health back to 100 and isOver back to false and clear resultDiv.innerText and don't forget to updateGame()
 
   }
@@ -139,7 +143,7 @@ else if(isOver == true && p2.health == 0 ) {
   // ** Simulates the whole match untill one player runs out of health **
   play(p1, p2) {
     // Reset to make sure player health is back to full before starting
-
+    this.reset(p1,p2);
     // Make sure the players take turns untill isOver is TRUE
     while (!this.isOver) {
       //Make sure both players get strike() and heal() once each loop
