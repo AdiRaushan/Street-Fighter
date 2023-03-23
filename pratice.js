@@ -53,8 +53,7 @@ const updateGame = (p1,p2,gameState) => {
   if(p1.health <= 0 || p2.health <= 0 ){
     game.isOver = true
     gameState = game.isOver
-    resultDiv.innerText = 
-    declareWinner(game.isOver, p1, p2)
+    resultDiv.innerText = declareWinner(gameState, p1, p2)
     return gameState
   }
 }
@@ -124,7 +123,7 @@ else if(isOver == true && p2.health == 0 ) {
   message = `${p1.name} WINS`
 
 }
-  document.getElementById('victory').play()
+  document.getElementById("victory").play()
     // Return message variable 
 
     return message
