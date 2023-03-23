@@ -111,7 +111,7 @@ class Game {
   declareWinner(isOver,p1, p2) {
     
     // Create a message variable that will hold a message based on the condition
-    let message;
+    let message = 'tie';
     // If isOver is true AND p1 health is <= 0 then update message variable  to 'p1 WINS!'
     if(isOver == true && p1.health <= 0 ) {
       message = `${p2.name} WINS`
@@ -147,9 +147,13 @@ class Game {
     // Make sure the players take turns untill isOver is TRUE
     while (!this.isOver) {
       //Make sure both players get strike() and heal() once each loop
+      p1.strike(p1,p2,p1.attackDmg)
+      p2.heal(p2)
+      p2.strike(p2,p1,p2.attackDmg)
+      p1.heal(p1)
     }
     // Once isOver is TRUE run the declareWinner() method 
-    
+    return this.declareWinner(this.isOver, p1, p2)
   }
 
 }
@@ -177,7 +181,7 @@ let gameState;
 
 
 // ** Add a click listener to the simulate button that runs the play() method on click and pass in the players **
-
+playButton.onclick = () => result.innerText = game.play(p1,p2)
 
 // Add functionality where players can press a button to attack OR heal
 
