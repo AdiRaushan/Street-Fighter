@@ -70,16 +70,27 @@ class Player {
     this.attackDmg = attackDamage;
   }
   // ** Attack an enemy with a random number from 0 to YOUR attackDmg bonus **
-  strike (player, enemy, attackDmg) {
+  strike(player, enemy, attackDmg) {
     // Get random number between 1 - 10 and that is damageAmount
     let damageAmount = Math.ceil(Math.random() * attackDmg) 
     // Subtract the enemy health with the damageAmount
     enemy.health -= damageAmount
-    //  Update the game and DOM with updateGame
-    updateGame(p1,p2,gameState)
-    //  Return a message of 'player name attacks enemy name for damageAmount'
-    return `${player.name} attacks ${enemy.name} for ${damageAmount}` 
+    // Check if enemy health is less than or equal to zero
+    if (enemy.health <= 0) {
+      player.health += Math.abs(enemy.health) // Add remaining damage to player health
+      enemy.health = 0
+    }
+    // Check if player health is less than or equal to zero
+    if (player.health <= 0) {
+      player.health = 0
+    }
+    // Update the game and DOM with updateGame
+    updateGame(p1, p2, gameState)
+    // Return a message of 'player name attacks enemy name for damageAmount'
+    return `${player.name} attacks ${enemy.name} for ${damageAmount}`
   }
+  
+  
   // ** Heal the player for random number from  1 to 5 **
   heal (player) {
     // Get random number between 1 - 5 and store that in hpAmount
@@ -109,7 +120,9 @@ class Game {
     // Else if isOver is true AND p2 health is <= 0 then update message variable  to 'p2 WINS!'
     else if(isOver == true && p2.health <= 0) {
       message = `${p1.name} WINS!`
-    } 
+    } else if (isOver == true && p1.health == p2.health ) {
+      message = "It's a TIE!";
+    }
     console.log(isOver, p1.health, p2.health)
     // Play victory sound
     document.getElementById('victory').play()
@@ -123,15 +136,14 @@ class Game {
     p2.health = 100
     this.isOver = false
     resultDiv.innerText = ''
-    updateGame(p1,p2)
+    updateGame(p1,p2,this)
   }
   
-  // ** Simulates the whole match untill one player runs out of health **
   play(p1, p2) {
     this.reset(p1, p2);
     // Make sure the ps take turns untill isOver is TRUE
     while (!this.isOver) {
-      p1.strike(p1,p2, p1.attackDmg)
+      p1.strike(p1,p2, p1.attackDmg);
       p2.heal(p2)
       p2.strike(p2,p1, p2.attackDmg);
       p1.heal(p1)
@@ -139,12 +151,13 @@ class Game {
     // Once isOver is TRUE run the declareWinner() method 
     return this.declareWinner(this.isOver,p1,p2);
   }
+  
 
 }
 
 // ** Create 2 players using the player class **
-let player1 = new Player('Lance', 100, 15)
-let player2 = new Player('Qazi', 100, 15)
+let player1 = new Player('Ryu', 100, 10)
+let player2 = new Player('ken', 100, 10)
 
 
 // ** Save original Player Health in order to reset **
@@ -168,6 +181,8 @@ play.onclick = () => result.innerText = game.play(p1,p2);
 
 // ** BONUS **
 // Add functionality where players can press a button to attack OR heal
+
+
 
 // ** Player 1 Controls **
 document.addEventListener('keydown', function(e) {
